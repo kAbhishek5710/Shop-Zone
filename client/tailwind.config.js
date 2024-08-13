@@ -7,6 +7,7 @@ export default {
         customWhite: "#F6F4F3",
         customBlack: "#425664",
         customBlue: "#124E66",
+        customBlue2: "#124E66",
         // Add more custom colors as needed
       },
     },

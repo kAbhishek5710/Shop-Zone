@@ -1,9 +1,10 @@
-import React from 'react'
+import React from "react";
+import ImageSlider from "../components/ImageSlider";
 
 export default function Home() {
   return (
-    <div className='text-slate-500'>
-      Home Page
-    </div>
-  )
+    <>
+      <ImageSlider />
+    </>
+  );
 }

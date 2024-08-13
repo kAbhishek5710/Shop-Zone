@@ -31,7 +31,7 @@ export default function Header() {
     };
   });
   return (
-    <div className="p-2 shadow-lg  bg-customWhite sticky top-0 w-full">
+    <div className="p-2 shadow-lg  bg-customWhite sticky top-0 w-full z-50">
       <header className="flex justify-around items-center">
         <Link to={"/"}>
           <div className="flex justify-center gap-2 items-center">
@@ -70,7 +70,7 @@ export default function Header() {
           </button>
         </form>
         <ul className="flex justify-center items-center gap-4" ref={menuRef}>
-          <Link to={"/profile"}>
+          <Link>
             <li
               className="justify-center items-center flex-col"
               onClick={() => {
@@ -90,18 +90,37 @@ export default function Header() {
                 <span className="text-gray-500">Website Designer</span>
               </h3> */}
               <ul className="p-2">
-                <Link to={"/login"}>
-                  <DropdownItem img={user} text="Login / Sign Up" />
-                </Link>
+                <li
+                  onClick={() => {
+                    setOpen(!open);
+                  }}
+                >
+                  <Link to={"/login"}>
+                    <DropdownItem img={user} text="Login / Sign Up" />
+                  </Link>
+                </li>
                 {/* <DropdownItem img={user} text="My Profile" /> */}
                 {/* <DropdownItem img={edit} text="Edit Profile" /> */}
                 {/* <DropdownItem img={inbox} text="Inbox" /> */}
-                <Link to={"/profile"}>
-                  <DropdownItem img={settings} text="Settings" />
-                </Link>
-                <Link to={"/help"}>
-                  <DropdownItem img={help} text="Helps" />
-                </Link>
+                <li
+                  onClick={() => {
+                    setOpen(!open);
+                  }}
+                >
+                  <Link to={"/profile"}>
+                    <DropdownItem img={settings} text="Settings" />
+                  </Link>
+                </li>
+                <li
+                  onClick={() => {
+                    setOpen(!open);
+                  }}
+                >
+                  <Link to={"/help"}>
+                    <DropdownItem img={help} text="Helps" />
+                  </Link>
+                </li>
+
                 {/* <DropdownItem img={logout} text="Logout" /> */}
               </ul>
             </div>

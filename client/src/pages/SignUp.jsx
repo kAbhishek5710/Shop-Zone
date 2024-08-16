@@ -9,7 +9,7 @@ import Switch from "@mui/material/Switch";
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
-export default function Login() {
+export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [checked, setChecked] = useState(false);
 
@@ -24,34 +24,41 @@ export default function Login() {
 
   return (
     <div className="flex justify-center items-center h-[92vh]">
-      <div className="flex flex-col text-center justify-center p-6 rounded-lg shadow-xl backdrop-hue-rotate-90  shadow-gray-500 border">
-        <h1 className="text-4xl md:mx-28 lg:mx-32 underline-offset-8 font-dancing-script mt-4 mb-6 font-bold text-center text-customBlack">
-          Welcome Back
+      <div className="flex flex-col text-center justify-center p-8 rounded-lg shadow-xl backdrop-hue-rotate-90  shadow-gray-500 border">
+        <h1 className="text-4xl m-10 md:mx-16 lg:mx-24 font-dancing-script mt-4 mb-6 font-bold text-center text-customBlack">
+          Let's get Started
         </h1>
         <div className="flex flex-col justify-center font-semibold items-center mb-14">
-          <h1 className="text-customTemp font-semibold text-lg">Login As : </h1>
-          <div className="mt-1">
-            <span className="text-customBlue3 text-base">User</span>
+          <h1 className="text-customTemp font-semibold text-lg">
+            Sign Up As :{" "}
+          </h1>
+          <div className="mt-1 text-lg">
+            <span className="text-customBlue3">User</span>
             <Switch {...label} onClick={handleClickUserType} />
-            <span className="text-customBlue3 text-base">Vendor</span>
+            <span className="text-customBlue3">Vendor</span>
           </div>
         </div>
         <form action="" className="flex flex-col gap-4">
+          <input
+            id="name"
+            type="text"
+            className="p-3 rounded-lg bg-white outline-none"
+            placeholder={checked ? "Vendor Name" : "Name"}
+          />
           {checked ? (
             <input
-              id="vendor-name"
+              id="brandName"
               type="text"
               className="p-3 rounded-lg bg-white outline-none"
-              placeholder="Vendor Name"
+              placeholder="Brand Name"
             />
-          ) : (
-            <input
-              id="email"
-              type="email"
-              className="p-3 rounded-lg bg-white outline-none"
-              placeholder="E-Mail"
-            />
-          )}
+          ) : null}
+          <input
+            id="email"
+            type="email"
+            className="p-3 rounded-lg bg-white outline-none"
+            placeholder="email"
+          />
           <Input
             id="standard-adornment-password password"
             type={showPassword ? "text" : "password"}
@@ -77,12 +84,12 @@ export default function Login() {
         </form>
         <div className="flex justify-between mt-3 gap-20">
           <span>
-            Don't have an account?{" "}
-            <Link to={"/signup"}>
-              <b>Sign Up</b>
+            Have an account?{" "}
+            <Link to={"/signin"}>
+              <b>Sign In</b>
             </Link>
           </span>
-          <span>Forgot Password</span>
+          {/* <span className="">Forgot Password lalalala</span> */}
         </div>
       </div>
     </div>

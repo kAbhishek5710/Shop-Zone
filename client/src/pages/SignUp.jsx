@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import Input from "@mui/material/Input";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -12,14 +12,56 @@ const label = { inputProps: { "aria-label": "Switch demo" } };
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [checked, setChecked] = useState(false);
-
-  const handleClickUserType = () => setChecked((check) => !check);
-  // console.log(checked);
+  const [formData, setFormData] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
+  };
+
+  const handleClickUserType = () => {
+    setChecked((check) => !check);
+    setFormData({});
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const res = await fetch(
+        checked ? "/server/auth/vendorSignup" : "/server/auth/userSignup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+      const data = await res.json();
+      if (data.success === false) {
+        setLoading(false);
+        setError(true);
+        return;
+      }
+      setLoading(false);
+      navigate("/signin");
+    } catch (err) {
+      console.log(err.message);
+      setLoading(false);
+      setError(true);
+    }
   };
 
   return (
@@ -38,30 +80,44 @@ export default function SignUp() {
             <span className="text-customBlue3">Vendor</span>
           </div>
         </div>
-        <form action="" className="flex flex-col gap-4">
-          <input
-            id="name"
-            type="text"
-            className="p-3 rounded-lg bg-white outline-none"
-            placeholder={checked ? "Vendor Name" : "Name"}
-          />
+        <form onSubmit={handleSubmit} action="" className="flex flex-col gap-4">
           {checked ? (
+            <div className="flex flex-col gap-4">
+              <input
+                id="vendorName"
+                type="text"
+                onChange={handleChange}
+                className="p-3 rounded-lg bg-white outline-none"
+                placeholder={checked ? "Vendor Name" : "Name"}
+              />
+              <input
+                id="brandName"
+                type="text"
+                onChange={handleChange}
+                className="p-3 rounded-lg bg-white outline-none"
+                placeholder="Brand Name"
+              />
+            </div>
+          ) : (
             <input
-              id="brandName"
+              id="username"
               type="text"
+              onChange={handleChange}
               className="p-3 rounded-lg bg-white outline-none"
-              placeholder="Brand Name"
+              placeholder="Name"
             />
-          ) : null}
+          )}
           <input
             id="email"
             type="email"
+            onChange={handleChange}
             className="p-3 rounded-lg bg-white outline-none"
             placeholder="email"
           />
           <Input
-            id="standard-adornment-password password"
+            id="password"
             type={showPassword ? "text" : "password"}
+            onChange={handleChange}
             className="border p-2 pl-3 rounded-lg bg-white"
             placeholder="password"
             disableUnderline
@@ -78,8 +134,11 @@ export default function SignUp() {
             }
           />
 
-          <button className="bg-customBlue2 text-white p-3 rounded-lg hover:opacity-90 disabled:opacity-80">
-            SIGN IN
+          <button
+            disabled={loading}
+            className="bg-customBlue2 text-white p-3 rounded-lg hover:opacity-90 disabled:opacity-80"
+          >
+            {loading ? "Loading..." : "SIGN UP"}
           </button>
         </form>
         <div className="flex justify-between mt-3 gap-20">
@@ -89,7 +148,9 @@ export default function SignUp() {
               <b>Sign In</b>
             </Link>
           </span>
-          {/* <span className="">Forgot Password lalalala</span> */}
+        </div>
+        <div className="flex mt-2 text-red-600 font-semibold">
+          {!error ? null : <p>Error!! : Fill the Details correctly!!</p>}
         </div>
       </div>
     </div>

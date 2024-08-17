@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import Input from "@mui/material/Input";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -10,11 +10,48 @@ import Switch from "@mui/material/Switch";
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
 export default function Login() {
+  const [formData, setFormData] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  const handleClickUserType = () => setChecked((check) => !check);
-  // console.log(checked);
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+  console.log(formData);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(
+        checked ? "/api/auth/vendorSignin" : "/api/auth/userSignin",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+      if (data.success === false) {
+        return;
+      }
+      checked ? navigate("/vendorDashboard") : navigate("/");
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleClickUserType = () => {
+    setChecked((check) => !check);
+    setFormData({});
+  };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -36,27 +73,31 @@ export default function Login() {
             <span className="text-customBlue3 text-base">Vendor</span>
           </div>
         </div>
-        <form action="" className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           {checked ? (
             <input
-              id="vendor-name"
+              id="brandName"
               type="text"
               className="p-3 rounded-lg bg-white outline-none"
-              placeholder="Vendor Name"
+              placeholder="Brand Name"
+              onChange={handleChange}
             />
-          ) : (
+          ) : null}
+          {!checked ? (
             <input
               id="email"
               type="email"
               className="p-3 rounded-lg bg-white outline-none"
               placeholder="E-Mail"
+              onChange={handleChange}
             />
-          )}
+          ) : null}
           <Input
-            id="standard-adornment-password password"
+            id="password"
             type={showPassword ? "text" : "password"}
             className="border p-2 pl-3 rounded-lg bg-white"
             placeholder="password"
+            onChange={handleChange}
             disableUnderline
             endAdornment={
               <InputAdornment position="end">
@@ -84,6 +125,7 @@ export default function Login() {
           </span>
           <span>Forgot Password</span>
         </div>
+        <div className="flex mt-2 text-red-600 font-semibold">{error === "" ? null : <p>Error!! :  Fill the Details correctly!!</p>}</div>
       </div>
     </div>
   );

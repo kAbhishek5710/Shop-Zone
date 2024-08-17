@@ -89,6 +89,7 @@ export default function SignUp() {
                 onChange={handleChange}
                 className="p-3 rounded-lg bg-white outline-none"
                 placeholder={checked ? "Vendor Name" : "Name"}
+                required
               />
               <input
                 id="brandName"
@@ -96,6 +97,7 @@ export default function SignUp() {
                 onChange={handleChange}
                 className="p-3 rounded-lg bg-white outline-none"
                 placeholder="Brand Name"
+                required
               />
             </div>
           ) : (
@@ -105,6 +107,7 @@ export default function SignUp() {
               onChange={handleChange}
               className="p-3 rounded-lg bg-white outline-none"
               placeholder="Name"
+              required
             />
           )}
           <input
@@ -113,6 +116,7 @@ export default function SignUp() {
             onChange={handleChange}
             className="p-3 rounded-lg bg-white outline-none"
             placeholder="email"
+            required
           />
           <Input
             id="password"
@@ -120,6 +124,7 @@ export default function SignUp() {
             onChange={handleChange}
             className="border p-2 pl-3 rounded-lg bg-white"
             placeholder="password"
+            required
             disableUnderline
             endAdornment={
               <InputAdornment position="end">

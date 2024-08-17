@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import Input from "@mui/material/Input";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -28,7 +28,7 @@ export default function Login() {
     e.preventDefault();
     try {
       const res = await fetch(
-        checked ? "/api/auth/vendorSignin" : "/api/auth/userSignin",
+        checked ? "/server/auth/vendorSignin" : "/server/auth/userSignin",
         {
           method: "POST",
           headers: {
@@ -38,7 +38,6 @@ export default function Login() {
         }
       );
       const data = await res.json();
-      console.log(data);
       if (data.success === false) {
         return;
       }
@@ -125,7 +124,9 @@ export default function Login() {
           </span>
           <span>Forgot Password</span>
         </div>
-        <div className="flex mt-2 text-red-600 font-semibold">{error === "" ? null : <p>Error!! :  Fill the Details correctly!!</p>}</div>
+        <div className="flex mt-2 text-red-600 font-semibold">
+          {error === "" ? null : <p>Error!! : Fill the Details correctly!!</p>}
+        </div>
       </div>
     </div>
   );

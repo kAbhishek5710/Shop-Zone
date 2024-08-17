@@ -1,19 +1,23 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema(
+const vendorSchema = new mongoose.Schema(
   {
-    username: {
+    vendorName: {
       type: String,
       required: true,
-      unique: true,
     },
-    password: {
+    brandName: {
       type: String,
+      unique: true,
       required: true,
     },
     email: {
       type: String,
       unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
     },
     avatar: {
       type: String,
@@ -23,6 +27,6 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const User = mongoose.model("User", userSchema);
+const Vendor = mongoose.model("Vendor", vendorSchema);
 
-export default User;
+export default Vendor;

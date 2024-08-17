@@ -94,7 +94,7 @@ export default function Header() {
                     setOpen(!open);
                   }}
                 >
-                  <Link to={"/login"}>
+                  <Link to={"/signin"}>
                     <DropdownItem img={user} text="Login / Sign Up" />
                   </Link>
                 </li>

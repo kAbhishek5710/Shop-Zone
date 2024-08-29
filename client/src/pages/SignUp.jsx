@@ -101,14 +101,24 @@ export default function SignUp() {
               />
             </div>
           ) : (
-            <input
-              id="username"
-              type="text"
-              onChange={handleChange}
-              className="p-3 rounded-lg bg-white outline-none"
-              placeholder="Name"
-              required
-            />
+            <div className="flex flex-col gap-4">
+              <input
+                id="username"
+                type="text"
+                onChange={handleChange}
+                className="p-3 rounded-lg bg-white outline-none"
+                placeholder="Name"
+                required
+              />
+              <input
+                id="mobileNumber"
+                type="text"
+                onChange={handleChange}
+                className="p-3 rounded-lg bg-white outline-none"
+                placeholder="Mobile Number"
+                required
+              />
+            </div>
           )}
           <input
             id="email"

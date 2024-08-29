@@ -83,3 +83,12 @@ export const vendorSignin = async (req, res, next) => {
     next(err);
   }
 };
+
+export const signOut = (req, res, next) => {
+  try {
+    res.clearCookie("access_token");
+    res.status(200).json("Successfully logged out!!!");
+  } catch (err) {
+    next(err);
+  }
+};

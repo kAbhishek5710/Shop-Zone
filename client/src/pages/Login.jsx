@@ -6,15 +6,22 @@ import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Switch from "@mui/material/Switch";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  signInFailure,
+  signInStart,
+  signInSuccess,
+} from "../redux/user/userSlice";
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
 export default function Login() {
   const [formData, setFormData] = useState({});
+  const { loading, error } = useSelector((state) => state.user);
   const [showPassword, setShowPassword] = useState(false);
   const [checked, setChecked] = useState(false);
-  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData({
@@ -26,6 +33,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      dispatch(signInStart());
       const res = await fetch(
         checked ? "/server/auth/vendorSignin" : "/server/auth/userSignin",
         {
@@ -38,11 +46,13 @@ export default function Login() {
       );
       const data = await res.json();
       if (data.success === false) {
+        dispatch(signInFailure(data.message));
         return;
       }
-      checked ? navigate("/vendorDashboard") : navigate("/");
+      dispatch(signInSuccess(data));
+      checked ? navigate("/vendorDashboard") : navigate("/profile");
     } catch (err) {
-      setError(err.message);
+      dispatch(signInFailure(err.message));
     }
   };
 
@@ -124,7 +134,9 @@ export default function Login() {
           <span>Forgot Password</span>
         </div>
         <div className="flex mt-2 text-red-600 font-semibold">
-          {error === "" ? null : <p>Error!! : Fill the Details correctly!!</p>}
+          {error === null ? null : (
+            <p>Error!! : Fill the Details correctly!!</p>
+          )}
         </div>
       </div>
     </div>

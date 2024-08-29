@@ -1,9 +1,15 @@
 import Divider from "@mui/material/Divider";
+import { useDispatch, useSelector } from "react-redux";
+import LogOut from "../components/LogOut";
 
 export default function Profile() {
+  const { currentUser } = useSelector((state) => state.user);
+
   return (
     <div className="mx-12 mt-8">
-      <h1 className="ml-8 mb-4 font-semibold font-jersey-10 text-xl">Account_Name</h1>
+      <h1 className="ml-8 mb-4 font-extrabold text-xl font-dancing-script text-gray-500 tracking-widest">
+        {currentUser.username}
+      </h1>
       <Divider orientation="horizontal" flexItem />
       <div className="flex justify-start flex-col-reverse md:flex-row gap-6 text-gray-700">
         <div className="grid gap-2 justify-center items-start text-sm">
@@ -63,44 +69,58 @@ export default function Profile() {
           <Divider orientation="horizontal" flexItem />
         </div>
         <Divider orientation="vertical" flexItem className="hidden md:flex" />
-        <div className="flex flex-col items-start px-8 md:px-12 lg:px-60 pt-12 my-5 border border-customBlue border-opacity-20 rounded-lg flex-grow">
-          <div>
-            <h1 className="text-black opacity-80 font-semibold text-2xl">
-              Profile Details
-            </h1>
-          </div>
+        <div className="flex flex-col items-center md:items-start px-2 flex-wrap md:px-12 lg:px-60 pt-8 my-5 border border-customBlue border-opacity-20 rounded-lg flex-grow">
+          <h1 className="text-black ml-4 opacity-80 font-semibold text-2xl">
+            Profile Details
+          </h1>
           <Divider orientation="horizontal" flexItem />
           <div className="flex flex-col gap-8 ml-6 my-8 text-base font-medium">
             <div>
               <img src="" alt="" />
             </div>
-            <div className="grid grid-cols-2 lg:gap-x-48">
+            <div className="grid grid-cols-2 lg:gap-x-48 gap-y-6 md:px-12">
               <p>Full Name</p>
-              <p>Abhishek Kushwaha</p>
-            </div>
-            <div className="grid grid-cols-2 lg:gap-x-48">
+              <p>{currentUser.username}</p>
+
               <p>Mobile Number</p>
-              <p>9936569874</p>
-            </div>
-            <div className="grid grid-cols-2 lg:gap-x-48">
+              <p>{currentUser.mobileNumber}</p>
+
               <p>Email ID</p>
-              <p>demoMail@gmail.com</p>
-            </div>
-            <div className="grid grid-cols-2 lg:gap-x-48">
+              <p>{currentUser.email}</p>
+
               <p>Gender</p>
-              <p>Male</p>
-            </div>
-            <div className="grid grid-cols-2 lg:gap-x-48">
+              <p>
+                {currentUser.gender === null
+                  ? "- not disclosed -"
+                  : currentUser.gender}
+              </p>
+
               <p>Date of Birth</p>
-              <p>- not added -</p>
-            </div>
-            <div className="grid grid-cols-2 lg:gap-x-48">
+              <p>
+                {currentUser.dateOfBirth === null
+                  ? "- not disclosed -"
+                  : currentUser.dateOfBirth}
+              </p>
+
               <p>Location</p>
-              <p>Purani Haveli ke khandhar me</p>
-            </div>
-            <div className="grid grid-cols-2 lg:gap-x-48">
+              <p>
+                {currentUser.location === null
+                  ? "- not disclosed -"
+                  : currentUser.location}
+              </p>
+
               <p>Alternate Mobile</p>
-              <p>XXXXXXXX89</p>
+              <p>
+                {currentUser.alternateMobile === null
+                  ? "- not disclosed -"
+                  : currentUser.alternateMobile}
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 justify-center">
+              <button className="bg-customBlue mt-4 rounded-lg p-2 text-customWhite">
+                Edit the details
+              </button>
+              <LogOut />
             </div>
           </div>
         </div>

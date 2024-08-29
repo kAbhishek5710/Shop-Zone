@@ -39,6 +39,10 @@ const userSchema = new mongoose.Schema(
       default: null,
       match: /^[0-9]{10}$/,
     },
+    role: {
+      type: String,
+      default: "user",
+    },
     avatar: {
       type: String,
       default: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",

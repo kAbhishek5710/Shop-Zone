@@ -1,12 +1,34 @@
 import Divider from "@mui/material/Divider";
 import { useDispatch, useSelector } from "react-redux";
-import { handleSignOut } from "../utils/logout";
+import { handleSignOut } from "../utils/functionalities.js";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import {
+  deleteClientStart,
+  deleteClientFailure,
+  deleteClientSuccess,
+} from "../redux/user/userSlice.js";
 
 export default function Profile() {
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
+  const handleDeleteUser = async () => {
+    try {
+      dispatch(deleteClientStart());
+      const res = await fetch(`/server/client/delete/user/${currentUser._id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteClientFailure(data.message));
+        return;
+      }
+      dispatch(deleteClientSuccess(data));
+    } catch (err) {
+      dispatch(deleteClientFailure(err.message));
+    }
+  };
 
   return (
     <div className="mx-12 mt-8">
@@ -15,7 +37,7 @@ export default function Profile() {
       </h1>
       <Divider orientation="horizontal" flexItem />
       <div className="flex justify-start flex-col-reverse md:flex-row gap-6 text-gray-700">
-        <div className="grid gap-2 justify-center items-start text-sm">
+        <div className="w-full md:w-1/5 min-w-[160px] flex-none grid gap-2 justify-center items-start  text-sm">
           <div className="p-4">
             <h3 className="text-base">
               <a href="#">Overview</a>
@@ -64,7 +86,7 @@ export default function Profile() {
               <li>
                 <a href="#">Shopping Insiders</a>
               </li>
-              <li>
+              <li onClick={handleDeleteUser}>
                 <a href="#">Delete Account</a>
               </li>
             </ul>
@@ -77,19 +99,19 @@ export default function Profile() {
             Profile Details
           </h1>
           <Divider orientation="horizontal" flexItem />
-          <div className="flex flex-col gap-8 ml-6 my-8 text-base font-medium">
+          <div className="flex flex-col flex-wrap gap-8 my-8 text-base font-medium">
             <div>
               <img src="" alt="" />
             </div>
-            <div className="grid grid-cols-2 lg:gap-x-48 gap-y-6 md:px-12">
-              <p>Full Name</p>
+            <div className="grid grid-cols-2 flex-wrap gap-y-6">
+              <p className="truncate">Full Name</p>
               <p>{currentUser.username}</p>
 
               <p>Mobile Number</p>
               <p>{currentUser.mobileNumber}</p>
 
               <p>Email ID</p>
-              <p>{currentUser.email}</p>
+              <p className="truncate">{currentUser.email}</p>
 
               <p>Gender</p>
               <p>

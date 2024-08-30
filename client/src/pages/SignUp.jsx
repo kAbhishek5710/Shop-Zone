@@ -117,6 +117,8 @@ export default function SignUp() {
                 className="p-3 rounded-lg bg-white outline-none"
                 placeholder="Mobile Number"
                 required
+                pattern="[0-9]{10}"
+                maxLength="10"
               />
             </div>
           )}

@@ -9,7 +9,7 @@ import edit from "../assets/dropdown_img/edit.png";
 import help from "../assets/dropdown_img/help.png";
 import logout from "../assets/dropdown_img/logout.png";
 import { useDispatch, useSelector } from "react-redux";
-import { handleSignOut } from "../utils/logout";
+import { handleSignOut } from "../utils/functionalities";
 
 export default function Header() {
   const [open, setOpen] = useState(false);

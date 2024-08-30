@@ -7,6 +7,7 @@ import Profile from "./pages/Profile";
 import PrivateRoute from "./components/PrivateRoute";
 import PrivateRouteVendor from "./components/PrivateRouteVendor";
 import VendorDashboard from "./pages/VendorDashboard";
+import Edit from "./pages/Edit";
 
 function App() {
   return (
@@ -18,9 +19,11 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/edit" element={<Edit />} />
         </Route>
         <Route element={<PrivateRouteVendor />}>
           <Route path="/vendorDashboard" element={<VendorDashboard />} />
+          <Route path="/vendorDashboard/edit" element={<Edit />} />
         </Route>
       </Routes>
     </BrowserRouter>

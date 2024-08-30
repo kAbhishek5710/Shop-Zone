@@ -1,9 +1,12 @@
 import Divider from "@mui/material/Divider";
 import { useDispatch, useSelector } from "react-redux";
-import LogOut from "../components/LogOut";
+import { handleSignOut } from "../utils/logout";
+import { Link } from "react-router-dom";
+import moment from "moment";
 
 export default function Profile() {
   const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   return (
     <div className="mx-12 mt-8">
@@ -99,7 +102,7 @@ export default function Profile() {
               <p>
                 {currentUser.dateOfBirth === null
                   ? "- not disclosed -"
-                  : currentUser.dateOfBirth}
+                  : moment(currentUser.dateOfBirth).format("DD / MM / YYYY")}
               </p>
 
               <p>Location</p>
@@ -117,10 +120,18 @@ export default function Profile() {
               </p>
             </div>
             <div className="flex flex-col gap-3 justify-center">
-              <button className="bg-customBlue mt-4 rounded-lg p-2 text-customWhite">
+              <Link
+                to={"/profile/edit"}
+                className="bg-customBlue text-center mt-4 rounded-lg p-2 text-customWhite"
+              >
                 Edit the details
+              </Link>
+              <button
+                onClick={() => handleSignOut(dispatch)}
+                className="bg-customPink rounded-lg p-2 text-customWhite"
+              >
+                Log Out
               </button>
-              <LogOut />
             </div>
           </div>
         </div>

@@ -1,9 +1,10 @@
 import express from "express";
 import mongoose from "mongoose";
 import authRouter from "./Routes/auth.route.js";
+import clientRouter from "./Routes/client.route.js";
 import dotenv from "dotenv";
 dotenv.config();
-const app = express();
+import cookieParser from "cookie-parser";
 
 mongoose
   .connect(process.env.MONGO_URL)
@@ -14,7 +15,11 @@ mongoose
     console.log(err);
   });
 
+const app = express();
+
 app.use(express.json());
+
+app.use(cookieParser());
 
 app.listen(8080, () => {
   console.log("App is listening to port 8080");
@@ -25,3 +30,4 @@ app.get("/", (req, res) => {
 });
 
 app.use("/server/auth", authRouter);
+app.use("/server/client", clientRouter);

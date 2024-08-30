@@ -1,6 +1,15 @@
 import React from "react";
-import LogOut from "../components/LogOut";
+import { handleSignOut } from "../utils/logout";
+import { useDispatch } from "react-redux";
 
 export default function VendorDashboard() {
-  return <LogOut />;
+  const dispatch = useDispatch();
+  return (
+    <button
+      onClick={() => handleSignOut(dispatch)}
+      className="bg-customPink rounded-lg p-2 text-customWhite"
+    >
+      Log Out
+    </button>
+  );
 }

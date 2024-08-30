@@ -6,13 +6,19 @@ import { IoCartOutline, IoPersonCircleSharp } from "react-icons/io5";
 import DropdownItem from "./DropdownItem";
 import user from "../assets/dropdown_img/user.png";
 import edit from "../assets/dropdown_img/edit.png";
-import inbox from "../assets/dropdown_img/inbox.png";
-import settings from "../assets/dropdown_img/settings.png";
 import help from "../assets/dropdown_img/help.png";
 import logout from "../assets/dropdown_img/logout.png";
+import { useDispatch, useSelector } from "react-redux";
+import { handleSignOut } from "../utils/logout";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
 
   let menuRef = useRef();
 
@@ -72,55 +78,76 @@ export default function Header() {
           <Link>
             <li
               className="justify-center items-center flex-col"
-              onClick={() => {
-                setOpen(!open);
-              }}
+              onClick={handleClick}
             >
               <IoPersonCircleSharp className="text-3xl text-slate-700" />
             </li>
             <div
-              className={`absolute right-0 mt-4 w-48 mr-8 md:mr-16 lg:mr-20 bg-white rounded-md shadow-lg ${
+              className={`absolute right-0 mt-4 w-522 mr-8 md:mr-16 lg:mr-20 bg-white rounded-md shadow-lg ${
                 open ? "block" : "hidden"
               }`}
             >
-              {/* <h3 className="p-4 border-b">
-                The Kiet
-                <br />
-                <span className="text-gray-500">Website Designer</span>
-              </h3> */}
+              {currentUser && (
+                <Link
+                  to={
+                    currentUser.role === "user"
+                      ? "/profile"
+                      : "/vendorDashboard"
+                  }
+                >
+                  <h3
+                    onClick={handleClick}
+                    className="p-4 border-b text-base font-semibold opacity-80"
+                  >
+                    {currentUser.role == "user"
+                      ? currentUser.username
+                      : currentUser.brandName}
+                  </h3>
+                </Link>
+              )}
               <ul className="p-2">
-                <li
-                  onClick={() => {
-                    setOpen(!open);
-                  }}
-                >
-                  <Link to={"/signin"}>
-                    <DropdownItem img={user} text="Login / Sign Up" />
-                  </Link>
-                </li>
-                {/* <DropdownItem img={user} text="My Profile" /> */}
-                {/* <DropdownItem img={edit} text="Edit Profile" /> */}
-                {/* <DropdownItem img={inbox} text="Inbox" /> */}
-                <li
-                  onClick={() => {
-                    setOpen(!open);
-                  }}
-                >
-                  <Link to={"/profile"}>
-                    <DropdownItem img={settings} text="Settings" />
-                  </Link>
-                </li>
-                <li
-                  onClick={() => {
-                    setOpen(!open);
-                  }}
-                >
+                {!currentUser && (
+                  <li onClick={handleClick}>
+                    <Link to={"/signin"}>
+                      <DropdownItem img={user} text="Login / Sign Up" />
+                    </Link>
+                  </li>
+                )}
+                {currentUser && (
+                  <div>
+                    <li onClick={handleClick}>
+                      <Link
+                        to={
+                          currentUser.role === "user"
+                            ? "/profile"
+                            : "/vendorDashboard"
+                        }
+                      >
+                        <DropdownItem img={user} text="My Profile" />
+                      </Link>
+                    </li>
+                    <li onClick={handleClick}>
+                      <Link to={"/profile/edit"}>
+                        <DropdownItem img={edit} text="Edit Profile" />
+                      </Link>
+                    </li>
+                  </div>
+                )}
+                <li onClick={handleClick}>
                   <Link to={"/help"}>
-                    <DropdownItem img={help} text="Helps" />
+                    <DropdownItem img={help} text="Help" />
                   </Link>
                 </li>
-
-                {/* <DropdownItem img={logout} text="Logout" /> */}
+                {currentUser && (
+                  <li
+                    onClick={() => {
+                      handleSignOut(dispatch);
+                      handleClick();
+                    }}
+                  >
+                    <DropdownItem img={logout} text="Logout" />
+                  </li>
+                )}
               </ul>
             </div>
           </Link>

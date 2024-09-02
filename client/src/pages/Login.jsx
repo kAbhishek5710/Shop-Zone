@@ -12,6 +12,7 @@ import {
   signInStart,
   signInSuccess,
 } from "../redux/user/userSlice";
+import OAuth from "../components/OAuth";
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
@@ -84,10 +85,10 @@ export default function Login() {
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           {checked ? (
             <input
-              id="brandName"
+              id="companyName"
               type="text"
               className="p-3 rounded-lg bg-white outline-none"
-              placeholder="Brand Name"
+              placeholder="Company Name"
               onChange={handleChange}
             />
           ) : null}
@@ -123,6 +124,7 @@ export default function Login() {
           <button className="bg-customBlue2 text-white p-3 rounded-lg hover:opacity-90 disabled:opacity-80">
             SIGN IN
           </button>
+          {!checked && <OAuth />}
         </form>
         <div className="flex justify-between mt-3 gap-20">
           <span>

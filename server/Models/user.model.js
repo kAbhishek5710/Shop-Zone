@@ -17,7 +17,6 @@ const userSchema = new mongoose.Schema(
     },
     mobileNumber: {
       type: String,
-      required: true,
       unique: true,
       match: /^[0-9]{10}$/, // Validates 10-digit mobile numbers
     },

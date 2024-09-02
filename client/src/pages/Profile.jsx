@@ -108,7 +108,11 @@ export default function Profile() {
               <p>{currentUser.username}</p>
 
               <p>Mobile Number</p>
-              <p>{currentUser.mobileNumber}</p>
+              <p>
+                {currentUser.mobileNumber
+                  ? currentUser.mobileNumber
+                  : "- not added -"}
+              </p>
 
               <p>Email ID</p>
               <p className="truncate">{currentUser.email}</p>

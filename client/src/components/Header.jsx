@@ -101,7 +101,7 @@ export default function Header() {
                   >
                     {currentUser.role == "user"
                       ? currentUser.username
-                      : currentUser.brandName}
+                      : currentUser.companyName}
                   </h3>
                 </Link>
               )}
@@ -123,12 +123,19 @@ export default function Header() {
                             : "/vendorDashboard"
                         }
                       >
-                        <DropdownItem img={user} text="My Profile" />
+                        <DropdownItem
+                          img={user}
+                          text={
+                            currentUser.role === "user"
+                              ? "My Profile"
+                              : "Dashboard"
+                          }
+                        />
                       </Link>
                     </li>
                     <li onClick={handleClick}>
                       <Link to={"/profile/edit"}>
-                        <DropdownItem img={edit} text="Edit Profile" />
+                        <DropdownItem img={edit} text="Edit Information" />
                       </Link>
                     </li>
                   </div>

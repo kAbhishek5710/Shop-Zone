@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import authRouter from "./Routes/auth.route.js";
 import clientRouter from "./Routes/client.route.js";
+import productRouter from "./Routes/product.route.js";
 import dotenv from "dotenv";
 dotenv.config();
 import cookieParser from "cookie-parser";
@@ -31,3 +32,4 @@ app.get("/", (req, res) => {
 
 app.use("/server/auth", authRouter);
 app.use("/server/client", clientRouter);
+app.use("/server/product", productRouter);

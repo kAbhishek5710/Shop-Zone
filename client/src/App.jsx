@@ -8,6 +8,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import PrivateRouteVendor from "./components/PrivateRouteVendor";
 import VendorDashboard from "./pages/VendorDashboard";
 import Edit from "./pages/Edit";
+import CreateProduct from "./pages/products/CreateProduct";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route element={<PrivateRouteVendor />}>
           <Route path="/vendorDashboard" element={<VendorDashboard />} />
           <Route path="/vendorDashboard/edit" element={<Edit />} />
+          <Route path="/vendorDashboard/add" element={<CreateProduct />} />
         </Route>
       </Routes>
     </BrowserRouter>

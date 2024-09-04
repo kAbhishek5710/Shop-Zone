@@ -79,6 +79,10 @@ const productSchema = new mongoose.Schema({
       },
     },
   ],
+  vendorRef: {
+    type: String,
+    required: true,
+  },
 });
 
 const Product = mongoose.model("Product", productSchema);

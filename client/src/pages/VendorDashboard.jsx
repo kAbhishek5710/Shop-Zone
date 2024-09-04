@@ -57,8 +57,14 @@ export default function VendorDashboard() {
           </div>
           <div className="flex flex-col w-full gap-3 justify-center">
             <Link
+              to={"/vendorDashboard/add"}
+              className="bg-customBlue3 text-center mt-4 rounded-lg p-2 text-customWhite"
+            >
+              Add Products
+            </Link>
+            <Link
               to={"/vendorDashboard/edit"}
-              className="bg-customBlue text-center mt-4 rounded-lg p-2 text-customWhite"
+              className="bg-customBlue text-center rounded-lg p-2 text-customWhite"
             >
               Edit the details
             </Link>

@@ -34,7 +34,7 @@ export default function CreateProduct() {
   const [loading, setLoading] = useState(false);
 
   const categories = {
-    Men: ["Shirts", "Pants", "Shoes", "Accessories"],
+    Men: ["Shirts", "T-Shirts", "Pants", "Shoes", "Accessories"],
     Women: ["Dresses", "Shoes", "Accessories"],
     Kids: ["Toys", "Clothes", "Books"],
     Tech: ["Laptops", "Phones", "Accessories"],
@@ -244,7 +244,7 @@ export default function CreateProduct() {
             id="stock"
             onChange={handleChange}
             className="border p-3 rounded-lg outline-none"
-            min={1}
+            min={0}
             placeholder="Quantity"
             required
           />
@@ -301,7 +301,7 @@ export default function CreateProduct() {
             disabled={loading || uploading}
             className="p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disables:opacity-80"
           >
-            {loading ? "Creating..." : "Create Listing"}
+            {loading ? "Adding..." : "Add product"}
           </button>
           {error && <p className="text-red-700 text-sm">{error}</p>}
         </div>

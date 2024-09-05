@@ -87,7 +87,7 @@ export default function Login() {
             <input
               id="companyName"
               type="text"
-              className="p-3 rounded-lg bg-white outline-none"
+              className="border p-3 rounded-lg bg-white outline-none"
               placeholder="Company Name"
               onChange={handleChange}
             />
@@ -96,7 +96,7 @@ export default function Login() {
             <input
               id="email"
               type="email"
-              className="p-3 rounded-lg bg-white outline-none"
+              className="border p-3 rounded-lg bg-white outline-none"
               placeholder="E-Mail"
               onChange={handleChange}
             />
@@ -104,7 +104,7 @@ export default function Login() {
           <Input
             id="password"
             type={showPassword ? "text" : "password"}
-            className="border p-2 pl-3 rounded-lg bg-white"
+            className="border p-2 pl-3 outline-none rounded-lg bg-white"
             placeholder="password"
             onChange={handleChange}
             disableUnderline

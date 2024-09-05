@@ -1,3 +1,4 @@
+import Product from "../Models/product.model.js";
 import User from "../Models/user.model.js";
 import Vendor from "../Models/vendor.model.js";
 import { errorHandler } from "../utils/error.js";
@@ -67,5 +68,18 @@ export const deleteUser = async (req, res, next) => {
     res.status(200).json("User has been deleted!!!");
   } catch (err) {
     next(err);
+  }
+};
+
+export const getVendorProducts = async (req, res, next) => {
+  if (req.user.id === req.params.id) {
+    try {
+      const products = await Product.find({ vendorRef: req.params.id });
+      res.status(200).json(products);
+    } catch (err) {
+      next(err);
+    }
+  } else {
+    return next(errorHandler(401, "Cannot Access others products!!!"));
   }
 };

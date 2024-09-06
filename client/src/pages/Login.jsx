@@ -70,7 +70,7 @@ export default function Login() {
 
   return (
     <div className="flex justify-center items-center h-[92vh]">
-      <div className="flex flex-col text-center justify-center p-6 rounded-lg shadow-xl backdrop-hue-rotate-90  shadow-gray-500 border">
+      <div className="flex flex-col text-center justify-center p-6 rounded-lg shadow-xl -backdrop-hue-rotate-180  shadow-gray-500 border">
         <h1 className="text-4xl md:mx-28 lg:mx-32 underline-offset-8 font-dancing-script mt-4 mb-6 font-bold text-center text-customBlack">
           Welcome Back
         </h1>

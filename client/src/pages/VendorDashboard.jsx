@@ -193,12 +193,13 @@ export default function VendorDashboard() {
                       </span>
                     </div>
                     <Divider orientation="vertical" flexItem />
-                    <div className="flex gap-2">
+                    <div className="flex items-center gap-2">
                       <span className="text-sm">MRP :</span>
                       <span className="text-customPink font-bold">&#8377;</span>
                       <span className="opacity-60 line-through">
                         {product.price}
                       </span>
+                      <span className="text-xs text-red-700 opacity-55 font-bold">({product.discount}% off)</span>
                     </div>
                   </div>
                   <p className="text-sm text-green-700 font-semibold opacity-60">

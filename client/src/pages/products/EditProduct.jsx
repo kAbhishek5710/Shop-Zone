@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { TiDelete } from "react-icons/ti";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import {
   getStorage,
@@ -14,6 +13,7 @@ import { app } from "../../firebase";
 
 export default function EditProduct() {
   const params = useParams();
+  const navigate = useNavigate();
   const [category, setCategory] = useState("");
   const [subCategories, setSubCategories] = useState([]);
   const [formData, setFormData] = useState({
@@ -148,12 +148,41 @@ export default function EditProduct() {
     });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (formData.images.length < 1) {
+        return setError("You must upload at least one image!");
+      }
+      setLoading(true);
+      setError(false);
+      const res = await fetch(`/server/product/update/${params.productId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      setLoading(false);
+      if (data.success === false) {
+        setError(data.message);
+        console.log(data.message);
+        return;
+      }
+      navigate("/vendorDashboard");
+    } catch (err) {
+      setError(err.message);
+      console.log(err);
+    }
+  };
+
   return (
     <main className="p-3 flex flex-col justify-center gap-8 max-w-4xl mx-auto">
       <h1 className="text-3xl underline underline-offset-8 my-8 font-semibold font-dancing-script tracking-widest text-customBlue text-center">
         Product Details
       </h1>
-      <form className="flex flex-col sm:flex-row gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
         <div className="flex flex-col gap-4 flex-1">
           <input
             id="productName"
@@ -303,6 +332,7 @@ export default function EditProduct() {
               ))}
           </div>
           <button
+            type="submit"
             disabled={loading || uploading}
             className="p-3 bg-slate-700 text-white tracking-wider rounded-lg uppercase hover:opacity-95 disables:opacity-80"
           >

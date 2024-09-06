@@ -37,3 +37,38 @@ export const deleteProduct = async (req, res, next) => {
     next(err);
   }
 };
+
+export const updateProduct = async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
+
+  if (!product) {
+    return next(errorHandler(404, "Product not found!!!"));
+  }
+
+  if (req.user.id !== product.vendorRef) {
+    return next(errorHandler("You can only update your products!!!"));
+  }
+
+  try {
+    const updatedProduct = await Product.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: {
+          productName: req.body.productName,
+          description: req.body.description,
+          price: req.body.price,
+          discount: req.body.discount,
+          category: req.body.category,
+          subCategory: req.body.subCategory,
+          brand: req.body.brand,
+          stock: req.body.stock,
+          images: req.body.images,
+        },
+      },
+      { new: true }
+    );
+    res.status(201).json(updatedProduct);
+  } catch (err) {
+    next(err);
+  }
+};

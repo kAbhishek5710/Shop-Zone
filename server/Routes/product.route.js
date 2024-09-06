@@ -4,6 +4,7 @@ import {
   addProduct,
   deleteProduct,
   getProduct,
+  updateProduct,
 } from "../Controllers/product.controller.js";
 
 const router = express.Router();
@@ -11,5 +12,6 @@ const router = express.Router();
 router.post("/add", verifyToken, addProduct);
 router.get("/get/:id", getProduct);
 router.delete("/delete/:id", verifyToken, deleteProduct);
+router.post("/update/:id", verifyToken, updateProduct);
 
 export default router;

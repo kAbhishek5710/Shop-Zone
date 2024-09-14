@@ -26,6 +26,7 @@ export const vendorSignup = async (req, res, next) => {
   const {
     name,
     companyName,
+    companyWebsite,
     email,
     password,
     street,
@@ -40,6 +41,7 @@ export const vendorSignup = async (req, res, next) => {
     companyName,
     email,
     password: hashedPassword,
+    companyWebsite: companyWebsite,
     address: { street, city, state, postalCode, country },
   });
 

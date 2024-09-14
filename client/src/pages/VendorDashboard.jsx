@@ -74,7 +74,7 @@ export default function VendorDashboard() {
         </h1>
       </div>
       <Divider orientation="horizontal" flexItem />
-      <div className="grid grid-cols-1 lg:grid-cols-2 mt-8 gap-8">
+      <div className="grid grid-cols-1 max-w-3xl mx-auto justify-center mt-8 gap-8">
         <div className="flex flex-col px-20 py-10 justify-center items-center border rounded-lg border-customBlue3">
           <h1 className="text-lg font-dancing-script text-customBlack mb-2 font-semibold tracking-widest">
             Profile Information
@@ -136,7 +136,7 @@ export default function VendorDashboard() {
           {refinedVendorProducts.map((product) => (
             <div
               key={product._id}
-              className="relative flex flex-col sm:flex-row gap-6 sm:gap-12 sm:w-full bg-white border rounded-lg p-3 px-8 sm:p-2 mb-4"
+              className="relative flex flex-col flex-wrap sm:flex-row gap-6 sm:gap-12 sm:w-full bg-white border rounded-lg p-3 px-8 sm:p-2 mb-4"
             >
               <div className="flex flex-col gap-1 absolute top-1 right-1">
                 <Link to={`/vendorDashboard/updateProduct/${product._id}`}>
@@ -151,15 +151,15 @@ export default function VendorDashboard() {
                   <MdDelete />
                 </button>
               </div>
-              <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 sm:w-full">
+              <div className="flex flex-col sm:flex-row gap-6 overflow-hidden sm:gap-12 sm:w-full">
                 <div className="w-48 sm:w-36 h-64 sm:h-48 object-cover">
                   <ImageSlider images={product.images} />
                 </div>
-                <div className=" sm:mt-1 flex flex-col gap-1 justify-start">
+                <div className="sm:mt-1 flex flex-wrap flex-col gap-1 justify-start overflow-hidden">
                   <h1 className="font-semibold tracking-wide font-jersey-1 text-base opacity-95">
                     {product.brand}
                   </h1>
-                  <p className="text-sm text-gray-500 opacity-60">
+                  <p className="text-sm flex flex-wrap text-gray-500 opacity-60 truncate">
                     {product.productName}
                   </p>
                   <p className="font-semibold text-customBlue2 text-sm">
@@ -199,7 +199,9 @@ export default function VendorDashboard() {
                       <span className="opacity-60 line-through">
                         {product.price}
                       </span>
-                      <span className="text-xs text-red-700 opacity-55 font-bold">({product.discount}% off)</span>
+                      <span className="text-xs text-red-700 opacity-55 font-bold">
+                        ({product.discount}% off)
+                      </span>
                     </div>
                   </div>
                   <p className="text-sm text-green-700 font-semibold opacity-60">

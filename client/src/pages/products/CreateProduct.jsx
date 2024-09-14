@@ -135,6 +135,7 @@ export default function CreateProduct() {
         body: JSON.stringify({
           ...formData,
           vendorRef: currentUser._id,
+          soldBy: currentUser.companyName,
         }),
       });
       const data = await res.json();

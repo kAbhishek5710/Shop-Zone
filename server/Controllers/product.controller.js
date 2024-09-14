@@ -22,6 +22,19 @@ export const getProduct = async (req, res, next) => {
   }
 };
 
+export const getProducts = async (req, res, next) => {
+  const { category } = req.params;
+  try {
+    const products = await Product.find({ category });
+    if (!products) {
+      return next(errorHandler(404, "Products not found!!!"));
+    }
+    res.status(200).json(products);
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const deleteProduct = async (req, res, next) => {
   const product = await Product.findById(req.params.id);
   if (!product) {

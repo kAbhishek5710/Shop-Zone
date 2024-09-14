@@ -126,7 +126,7 @@ export default function Edit() {
                   onChange={handleChange}
                   className="p-3 flex-grow rounded-lg bg-white outline-none"
                   defaultValue={currentUser.address.postalCode}
-                  pattern="[0-9]{6}"
+                  pattern="[0-9]{5,6}"
                   maxLength={6}
                   required
                 />

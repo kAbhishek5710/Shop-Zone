@@ -10,7 +10,8 @@ import VendorDashboard from "./pages/VendorDashboard";
 import Edit from "./pages/Edit";
 import CreateProduct from "./pages/products/CreateProduct";
 import EditProduct from "./pages/products/EditProduct";
-import MenClothing from "./pages/ClothingPages/MenClothing";
+import Product from "./pages/products/Product";
+import ProductsPage from "./pages/products/ProductsPage";
 
 function App() {
   return (
@@ -33,7 +34,8 @@ function App() {
             element={<EditProduct />}
           />
         </Route>
-        <Route path="/men" element={<MenClothing />} />
+        <Route path="/shop/:category" element={<ProductsPage />} />
+        <Route path="/:productId" element={<Product />} />
       </Routes>
     </BrowserRouter>
   );

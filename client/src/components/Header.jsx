@@ -48,21 +48,21 @@ export default function Header() {
           </div>
         </Link>
         <ul className="justify-between gap-6 text-base hidden lg:flex font-semibold opacity-75">
-          <Link to={"/shop/men"}>
-            <li>Men</li>
-          </Link>
-          <Link to={"/shop/women"}>
-            <li>Women</li>
-          </Link>
-          <Link to={"/shop/kids"}>
-            <li>Kids</li>
-          </Link>
-          <Link to={"/shop/home-living"}>
-            <li>Home & Living</li>
-          </Link>
-          <Link to={"/shop/beauty"}>
-            <li>Beauty</li>
-          </Link>
+          <li>
+            <Link to={`/shop/Men`}>Men</Link>
+          </li>
+          <li>
+            <Link to={`/shop/Women`}>Women</Link>
+          </li>
+          <li>
+            <Link to={"/shop/Kids"}>Kids</Link>
+          </li>
+          <li>
+            <Link to={"/shop/Grooming"}>Grooming</Link>
+          </li>
+          <li>
+            <Link to={"/shop/Tech"}>Tech</Link>
+          </li>
         </ul>
         <form className="flex justify-center items-center rounded-lg p-1 px-3 border-slate-400 bg-slate-200">
           <input
@@ -74,14 +74,14 @@ export default function Header() {
             <FaSearch className="m-1 text-lg md:text-xl text-slate-600" />
           </button>
         </form>
-        <ul className="flex justify-center items-center gap-4" ref={menuRef}>
+        <div className="flex justify-center items-center gap-4" ref={menuRef}>
           <Link>
-            <li
-              className="justify-center items-center flex-col"
+            <button
+              className="flex flex-col justify-center items-center"
               onClick={handleClick}
             >
               <IoPersonCircleSharp className="text-3xl text-slate-700" />
-            </li>
+            </button>
             <div
               className={`absolute right-0 mt-4 w-522 mr-8 md:mr-16 lg:mr-20 bg-white rounded-md shadow-lg ${
                 open ? "block" : "hidden"
@@ -159,16 +159,16 @@ export default function Header() {
             </div>
           </Link>
           <Link to={"/wishlist"}>
-            <li className="flex flex-col justify-center items-center">
+            <button className="flex flex-col justify-center items-center">
               <FaRegHeart className="text-2xl text-red-400" />
-            </li>
+            </button>
           </Link>
           <Link to={"/checkout/cart"}>
-            <li>
+            <button className="flex flex-col justify-center items-center">
               <IoCartOutline className="text-3xl text-slate-700" />
-            </li>
+            </button>
           </Link>
-        </ul>
+        </div>
       </header>
     </div>
   );

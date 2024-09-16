@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
 import ImageSlider from "../../components/ImageSlider";
 import { FaRegHeart } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 import Rating from "@mui/material/Rating";
-import { Divider } from "@mui/material";
 
-export default function MenClothing() {
+export default function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [favourites, setFavourites] = useState([]);
+  const { category } = useParams();
   useEffect(() => {
     const fetchMenProducts = async () => {
       try {
-        const res = await fetch("server/product/getProducts/Men");
+        const res = await fetch(`/server/product/getProducts/${category}`);
         const data = await res.json();
+
+        console.log(data);
 
         if (data.success === false) {
           setError(data.message);
@@ -34,7 +36,7 @@ export default function MenClothing() {
       }
     };
     fetchMenProducts();
-  }, []);
+  }, [category]);
 
   const toggleFavourite = (productId) => {
     setFavourites((prevFavourites) =>
@@ -48,7 +50,7 @@ export default function MenClothing() {
     <div className="justify-center max-w-lg sm:max-w-lg md:max-w-3xl lg:max-w-7xl mx-auto my-12">
       <ul className="flex flex-wrap gap-12">
         {products.map((product) => (
-          <Link to={`/men/${product._id}`}>
+          <Link to={`/${product._id}`}>
             <li
               key={product._id}
               className={`relative flex flex-col gap-1 p-1 z-10 ${

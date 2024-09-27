@@ -99,11 +99,11 @@ export default function Profile() {
             Profile Details
           </h1>
           <Divider orientation="horizontal" flexItem />
-          <div className="flex flex-col flex-wrap gap-8 my-8 text-base font-medium">
+          <div className="flex flex-col flex-wrap gap-8 my-8 text-base  font-medium w-full">
             <div>
               <img src="" alt="" />
             </div>
-            <div className="grid grid-cols-2 flex-wrap gap-y-6">
+            <div className="grid grid-cols-2  flex-grow gap-y-6">
               <p className="truncate">Full Name</p>
               <p>{currentUser.username}</p>
 

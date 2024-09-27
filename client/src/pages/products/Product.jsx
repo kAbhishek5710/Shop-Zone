@@ -5,12 +5,16 @@ import { Divider } from "@mui/material";
 import { TbTruckDelivery } from "react-icons/tb";
 import { GiMoneyStack } from "react-icons/gi";
 import { FaExchangeAlt } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../utils/cartActions";
 
 export default function Product() {
+  const { currentUser } = useSelector((state) => state.user);
   const [productData, setProductData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const params = useParams();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -113,7 +117,15 @@ export default function Product() {
               </p>
               <Divider orientation="horizontal" flexItem />
               <div className="flex flex-col gap-3 my-3">
-                <button className="bg-red-500 rounded-lg text-slate-100 font-semibold tracking-wide p-1 py-2">
+                <button
+                  onClick={() => {
+                    const quantity = 1;
+                    dispatch(
+                      addToCart(currentUser._id, params.productId, quantity)
+                    );
+                  }}
+                  className="bg-red-500 rounded-lg text-slate-100 font-semibold tracking-wide p-1 py-2"
+                >
                   Add to Cart
                 </button>
                 <button className="bg-slate-300 opacity-85 text-black font-semibold tracking-wide rounded-lg p-1 py-2">

@@ -12,6 +12,7 @@ import CreateProduct from "./pages/products/CreateProduct";
 import EditProduct from "./pages/products/EditProduct";
 import Product from "./pages/products/Product";
 import ProductsPage from "./pages/products/ProductsPage";
+import Cart from "./pages/Cart";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/edit" element={<Edit />} />
+          <Route path="/checkout/cart" element={<Cart />} />
         </Route>
         <Route element={<PrivateRouteVendor />}>
           <Route path="/vendorDashboard" element={<VendorDashboard />} />
